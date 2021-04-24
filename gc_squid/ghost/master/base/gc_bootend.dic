@@ -17,7 +17,7 @@ CheckInputs {
 }
 OnBoot
 {
-	"\![updatebymyself,checkonly]"
+	"\![Update,ghost+shell+balloon,checkonly]"
 	--
 	OnRender
 	--

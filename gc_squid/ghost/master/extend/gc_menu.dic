@@ -19,7 +19,7 @@ OnMenu
 }
 OnMenu_Update
 {
-	"\![updatebymyself]"
+	"\![Update,ghost+shell+balloon]"
 }
 
 OnCustomize

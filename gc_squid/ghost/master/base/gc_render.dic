@@ -16,7 +16,7 @@ OnWindowStateRestore {
 }
 //After changing to this ghost.
 OnGhostChanged { 
-	"\![updatebymyself,checkonly]"
+	"\![Update,ghost+shell+balloon,checkonly]"
 	--
 	OnRender 
 	--
@@ -36,7 +36,7 @@ OnGhostChanging {
 }
 //Squid being called
 OnGhostCalled {
-	"\![updatebymyself,checkonly]"
+	"\![Update,ghost+shell+balloon,checkonly]"
 	--
 	OnRender
 	--

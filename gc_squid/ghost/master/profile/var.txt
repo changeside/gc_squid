@@ -6,4 +6,4 @@ homeurl,https://raw.githubusercontent.com/changeside/gc_squid/master/gc_squid/
 update_result,OK(0)
 firstboot,671641741
 commitmemorysize,8494535
-lastboot,672615025
+lastboot,672616073
