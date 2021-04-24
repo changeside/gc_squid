@@ -12,7 +12,7 @@ OnTimer
 	if !timeractive; _timer = "\_a[OnTimer_Set]Set Timer\_a"
     if timeractive == 1; _start = "\_a[OnTimer_Pause]Pause\_a   \_a[OnTimer_Stop]Stop\_a"
     elseif timeractive == 2; _start = "\_a[OnTimer_Continue]Continue\_a   \_a[OnTimer_Stop]Stop\_a"
-    elseif !OnTimer_Done; _start = "\_a[OnTimer_Start]Start\_a"
+    elseif (!timerdown || !OnTimer_Done); _start = "\_a[OnTimer_Start]Start\_a"
 	--
 	"\0\_q%(b0)%(b)Timer%(boff)\_l[190]\_a[Script:\e]X\_a/
     \n\n[half]/
@@ -76,14 +76,12 @@ OnTimer_Count
 {
     if timerdown && timeractive == 1 && !OnTimer_Done {
         timer[2] = TOINT(timer[2])-1
-        if timer[2] <= 0 {
-            if !OnTimer_Done {
-                timer[2] = 59
-                timer[1] = timer[1]-1
-                if !OnTimer_Done {
-                    timer[1] = 59
-                    timer[0] = timer[0]-1
-                }
+        if timer[2] <= 0 && !OnTimer_Done {
+            timer[2] = 59
+            timer[1] = timer[1]-1
+            if timer[1] <= 0 && !OnTimer_Done {
+                timer[1] = 59
+                timer[0] = timer[0]-1
             }
         }
     }
