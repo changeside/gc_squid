@@ -3,7 +3,7 @@ type,balloon
 name,squidloon
 craftman,galla_change
 
-//homeurl,http://changeside.usite.pro/blopblop
+homeurl,https://raw.githubusercontent.com/changeside/gc_squid/master/squidloon/	
 
 use_self_alpha,1
 
