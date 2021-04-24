@@ -12,6 +12,9 @@ OnVariables
 	userplanet = ""
 	birthdaycheck = (0,0) //[0] squid, [1] human; 0=not told; 1=told
 	togglefirst = 1 //first boot
+	aitalkinterval = 270
+	--
+	OnTimer_Init
 }
 OnFirstBoot
 {

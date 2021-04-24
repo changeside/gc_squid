@@ -34,18 +34,18 @@ font.color.b,0
 	//"\f[anchorfontcolor,108,129,182]"		//blue
 
 anchor.blendmethod,none
-anchor.style,underline
+anchor.style,square
 anchor.notselect.style,none
 anchor.visited.style,none
-anchor.brush.color.r,180
-anchor.brush.color.g,40
-anchor.brush.color.b,40
-anchor.pen.color.r,180
-anchor.pen.color.g,40
-anchor.pen.color.b,40
-anchor.font.color.r,108
-anchor.font.color.g,129
-anchor.font.color.b,182
+anchor.brush.color.r,95
+anchor.brush.color.g,81
+anchor.brush.color.b,133
+anchor.pen.color.r,0
+anchor.pen.color.g,0
+anchor.pen.color.b,0
+anchor.font.color.r,0
+anchor.font.color.g,0
+anchor.font.color.b,0
 
 
 

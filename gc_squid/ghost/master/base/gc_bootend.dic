@@ -92,6 +92,10 @@ OnTranslate {
 OnAnchorSelect {
 	if "http://" _in_ reference0 || "https://" _in_ reference0;
 		"\j[%(reference0)]"
+	elseif "OnTimer" _in_ reference0;
+		EVAL(reference0)
+	elseif reference0 == "Script:\e";
+		"\e"
 }
 
 //Input functions
@@ -105,7 +109,8 @@ OnUserInputCancel //can be used to ensure input; reference0 = Function the box c
 		when "OnUserPlanet"; _itext = ",Your planet"
 	}
 
-		_txt = "\![open,inputbox," + reference0 + ",-1" + _itext + "]"
+	if reference0 == "OnTimer_Save"; _txt = OnTimer
+	else; _txt = "\![open,inputbox," + reference0 + ",-1" + _itext + "]"
 	_txt
 }
 OnKeyPress {
@@ -115,7 +120,7 @@ OnKeyPress {
 
 //Shiori time Functions
 OnSecondChange {
-	//OnTimer_Count
+	OnTimer_Count
 }
 OnMinuteChange {
 	//if 5-10 min after boot

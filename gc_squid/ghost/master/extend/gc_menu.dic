@@ -10,7 +10,7 @@ OnMenu
 
 	"%(b0)\_l[0,25]/
 	\q[Customization,OnCustomize]\n/
-	\q[Timer,OnTimer]\n/
+	\q[Timer,OnTimer]\_l[@10]\q[(Settings),OnTimer_Settings]\n/
 	\q[Options,OnOption]\n/
 	\q[Goodbye!,OnClose_Own]\n/
 	\_l[0,130]\q[Nevermind,script:\e]"
@@ -91,10 +91,7 @@ OnTask
 	""
 }
 
-OnTimer
-{
 
-}
 
 OnOption
 {
@@ -103,9 +100,22 @@ OnOption
 	\q[Birthday:,OnUserInputCancel,OnUserBirthday] %(PrintBirthday)\n/
 	\q[Species:,OnUserInputCancel,OnUserSpecies] %(userspecies)\n/
 	\q[Planet:,OnUserInputCancel,OnUserPlanet] %(userplanet)\n/
+	\q[Talkrate:,OnOption_Talkinterval] %(PrintTalkinterval)\n/
 	\_l[0,130]\q[Nevermind,OnMenu]"
 }
-
+OnOption_Talkinterval
+{
+	case aitalkinterval {
+		when 45; aitalkinterval = 90
+		when 90; aitalkinterval = 270
+		when 270; aitalkinterval = 400
+		when 400; aitalkinterval = 0
+		when 0; aitalkinterval = 45
+		others; aitalkinterval = 270
+	}
+	--
+	OnOption
+}
 PrintBirthday //print date in written out day month format 
 {
 	_p = ""; _date = userbirthday
@@ -132,4 +142,15 @@ PrintBirthday //print date in written out day month format
 		others; _p += "December"
 	}
 	_p
+}
+PrintTalkinterval
+{
+	case aitalkinterval {
+		when 90; "Every min";
+		when 270; "Every 3 min"
+		when 400; "Every 5 min"
+		when 0; "Silent"
+		when 45; "Every 30 sec"
+		others; "Every 3 min" //270
+	}	
 }

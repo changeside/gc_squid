@@ -1,7 +1,3 @@
-AiTalkIntervalSet
-{
-    aitalkinterval = TOINT(reference0)
-}
 AiTalk
 {
     "%(bo)(It looks tired.)"

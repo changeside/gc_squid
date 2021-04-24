@@ -1,25 +1,123 @@
+
+//Thing to do:
+//Be able to set the timer
+//SETTINGS
+//toggle timer show on off
+//toggle timer nature (count up, count down)
+
 OnTimer_Init
 {
-    //hour,minute,seconds
-    timer = (0,2,20)
+    timer = (0,2,20) //hour,minute,seconds
+    timerremember = timer
+    timeractive = 0 //0=don't count; 1=count; 2=pause
+    timershow = 1 //0=show menu; 1= hide menu
+    timerdown = 1 //0=count up; 1=count down
 }
+OnTimer
+{
+	_timer = ""; _start = ""
+	if !timeractive; _timer = "\_a[OnTimer_Set]Set Timer\_a"
+    if timeractive == 1; _start = "\_a[OnTimer_Pause]Pause\_a   \_a[OnTimer_Stop]Stop\_a"
+    elseif timeractive == 2; _start = "\_a[OnTimer_Continue]Continue\_a   \_a[OnTimer_Stop]Stop\_a"
+    elseif !OnTimer_Done; _start = "\_a[OnTimer_Start]Start\_a"
+	--
+	"\0\_q%(b0)%(b)Timer%(boff)\_l[190]\_a[Script:\e]X\_a/
+    \n\n[half]/
+	%(timer[0])h %(timer[1])m %(timer[2])s\_l[130]%(_timer)\n/
+    %(_start)"
+}
+OnTimer_Settings
+{
+    _menu = ""; _count = ""
+    if timershow; _menu = "Show"
+    else; _menu = "Hide"
+    if timerdown; _count = "Down"
+    else; _count = "Up"
+    --
+    "\0\_q%(b0)%(b)Timer settings%(boff)\_l[180]\q[Back,OnMenu]\n\n[half]/
+    \q[Menu:,OnTimer_Menutoggle] %(_menu)\n/
+    \q[Count,OnTimer_Counttoggle] %(_count)"
+}
+OnTimer_Menutoggle {
+    timershow = (timershow++)%2
+    --
+    OnTimer_Settings
+}
+OnTimer_Counttoggle {
+    timerdown = (timerdown++)%2
+    --
+    OnTimer_Settings
+}
+OnTimer_Set { "\![open,timeinput,OnTimer_Save,-1,0,0,0]" }
+OnTimer_Save {
+    timerremember = reference0
+    timer = reference0
+    --
+    OnTimer
+}
+OnTimer_Pause { 
+    timeractive = 2 
+    --
+    OnTimer
+}
+OnTimer_Continue { 
+    timeractive = 1 
+    --
+    OnTimer
+}
+OnTimer_Stop {
+    timeractive = 0
+    timer = timerremember
+    --
+    OnTimer
+}
+OnTimer_Start { 
+    timerremember = timer
+    timeractive = 1
+    --
+    OnTimer
+}
+
 
 OnTimer_Count
 {
-    timer[2] = TOINT(timer[2])-1
-    //--
-    //OnTimer_Render
+    if timerdown && timeractive == 1 && !OnTimer_Done {
+        timer[2] = TOINT(timer[2])-1
+        if timer[2] <= 0 {
+            if !OnTimer_Done {
+                timer[2] = 59
+                timer[1] = timer[1]-1
+                if !OnTimer_Done {
+                    timer[1] = 59
+                    timer[0] = timer[0]-1
+                }
+            }
+        }
+    }
+    elseif timeractive == 1 {
+        timer[2] = TOINT(timer[2])+1
+        if TOINT(timer[2]) >= 60 {
+            timer[2] = 0
+            timer[1] = TOINT(timer[1])+1
+            if TOINT(timer[1]) >= 60 {
+                timer[1] = 0
+                timer[0] = TOINT(timer[0])+1
+            }   
+        }
+    }
+    --
+    if OnTimer_Done {
+        timeractive = 0
+        timer = timerremember
+        OnTimer
+    }
+    elseif timershow && timeractive == 1; OnTimer
 }
 
-OnTimer_Render
+OnTimer_Done
 {
-    _txt = ""
-    _nb = 0
-    for _i = 0; _i++; _i < 6 {
-        if _i%2 == 1; continue
-
-        _nb0 = TOSTR(timer[TOINT(_i/2)])
-        _nb1 = ERASE(_nb0,0,1)
+    if timer[0] == 0 && timer[1] == 0 && timer[2] == 0 {
+        1
     }
-    _txt
+    else; 0
 }
