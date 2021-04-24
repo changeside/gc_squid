@@ -1,5 +1,0 @@
-Charset,UTF-8
-install,588606335
-homeurl_found,1
-homeurl,http://changeside.usite.pro/underfellballoon/
-update_result,OK(0)
