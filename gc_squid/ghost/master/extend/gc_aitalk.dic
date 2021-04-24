@@ -1,0 +1,49 @@
+AiTalkIntervalSet
+{
+    aitalkinterval = TOINT(reference0)
+}
+AiTalk
+{
+
+}
+
+
+OnBirthday_Squid
+{
+    birthdaycheck[0] = 1
+    --
+    "%(b0)%(username), I have decided that today is my birthday.\x\c%(b0)Of course, I have never actually experienced being birthed, so this will be more of a metaphorical birthday than I assume it was for you.\x\c%(b0)I know, I know, you're wondering why today of all days. It seems arbitrary, nonsensical even. Why today, you ask me?"
+    --
+    "\n\n\![*]\q[Yes,OnYesBirthdayAsk]\n\![*]\q[No,OnNoBirthdayAsk]\t\*"
+}
+OnNoBirthdayAsk
+{
+    "%(b0)I don't care. I'm monologuing."
+    --
+    "\![raise,OnYesBirthdayAsk]"
+}
+OnYesBirthdayAsk
+{
+    "%(b0)I don't blame you if your boring, atom filled brain has forgotten this, the most important of days. The day in which your life was forever changed, your world expanded, your existence finally given the meaning it desperately needed.\x\c%(b0)It is the anniversary of the day that I saw fit to allow you to summon me here.\w4.\w4.\w4 According to your calendar, at least.\x\c%(b0)As I have no use for gifts or treats or mortal affection, I don't expect anything from you other than acknowledgement that this is the day most worthy of celebration of any that you have experienced. Ever.\x\c%(b0)You may begin.\w4.\w4.\w4 Now."
+}
+
+OnBirthday_User
+{
+    birthdaycheck[1] = 1
+    --
+    "%(b0)I understand it is the anniversary of your primal birthing into the physical world.\x\c%(b0)Congratulations on your newfound lifestage.\w8\n\nOr apologies on your progression towards death.\x\c"
+}
+
+
+
+
+examplechain : nonoverlap
+{{CHAIN
+    "Random1. Ends.\e:chain=end"
+    "Random2. Continues.\e:chain=examplechain2"
+}}CHAIN
+
+examplechain2 : nonoverlap
+{{CHAIN
+    "Ends here. From Random2.\e:chain=end"
+}}CHAIN

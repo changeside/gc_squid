@@ -1,0 +1,25 @@
+OnTimer_Init
+{
+    //hour,minute,seconds
+    timer = (0,2,20)
+}
+
+OnTimer_Count
+{
+    timer[2] = TOINT(timer[2])-1
+    //--
+    //OnTimer_Render
+}
+
+OnTimer_Render
+{
+    _txt = ""
+    _nb = 0
+    for _i = 0; _i++; _i < 6 {
+        if _i%2 == 1; continue
+
+        _nb0 = TOSTR(timer[TOINT(_i/2)])
+        _nb1 = ERASE(_nb0,0,1)
+    }
+    _txt
+}

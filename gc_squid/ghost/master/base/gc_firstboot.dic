@@ -1,0 +1,234 @@
+//------------------------------------------------------------------------------
+//  First boot and variables set up
+//------------------------------------------------------------------------------
+OnVariables
+{
+	if ISVAR("balloonnr") == 0; balloonnr = 0
+	if ISVAR("squidnr") == 0; squidnr = 0
+	squidbirthday = (day,month,year) //day,month,year
+	username = ""
+	userbirthday = IARRAY //day,month
+	userspecies = ""
+	userplanet = ""
+	birthdaycheck = (0,0) //[0] squid, [1] human; 0=not told; 1=told
+}
+OnFirstBoot
+{
+	OnVariables
+	--
+	"\1\s[-1]\0%(s)%(b0)I have arrived.\w8\n\n/
+	(\w4.\w4.\w4. It's a squid.)\x\c/
+	%(b0)It appears that your summoning has been successful. My congratulations to you for this grand achievement. /
+	It's not every day that one manages to acquire the attention of a god.\n\n/
+	(\w4.\w4.\w4. It's still just a squid.)\x\c/
+	%(b0)Though, I must admit that it seems to have been happening more frequently as of late. /
+	I suspect that another of my kind may have done a foolish thing, such as spreading my name and image to a new generation of mortals.\x\c/
+	%(b0)Have you recently heard a word which the very sound of has struck your heart with unexplained emotion?/
+	/
+	\n\n\![*]\q[Yes,OnYesSummonName]\n\![*]\q[No,OnNoSummonName]\t\*"
+}
+
+OnYesSummonName
+{
+	"%(b0)I see. I don't suppose you've also seen an indescribably compelling image, for good or ill, which may not necessarily resemble my current likeness?/
+	/
+	\n\n\![*]\q[Yes,OnYesSummonBoth]\n\![*]\q[No,OnNoSummonImage]\t\*"
+}
+OnNoSummonName
+{
+	"%(b0)Then you've unexpectedly encountered an image the likes of which you have no comparison? /
+	One that stopped you in your tracks with the depth of emotion it stirred within you?/
+	/
+	\n\n\![*]\q[Yes,OnYesSummonImage]\n\![*]\q[No,OnNoSummonBoth]\t\*"
+}
+OnYesSummonImage
+{
+	"%(b0)As expected. A secondary congratulations on having my visage eternally burned into your memory. /
+	Unless it has caused some sort of madness, in which case, apologies that your mortal mind meat was too weak to handle it.\x\c/
+	/
+	\![raise,OnFirstBoot2]"
+}
+OnNoSummonImage
+{
+	"%(b2)As much of a disappointment as it must be for you, it's likely for the best. /
+	What you see now, while potent enough to make any mortal cry from some emotion or another, /
+	is merely a part of the whole. An exceedingly beautiful and overwhelming whole that has caused many, /
+	many deaths by proximity.\n\n/
+	And a great deal of screaming.\x\c/
+	/
+	\![raise,OnFirstBoot2]"
+}
+OnYesSummonBoth
+{
+	"%(b0)What an extraordinary situation you must have found yourself in for such a thing to happen. /
+	Unfortunately, I don't care to know the how of it, nor do I care to explain its significance if you don't already know it, summoner mine.\x\c/
+	/
+	\![raise,OnFirstBoot2]"
+}
+OnNoSummonBoth
+{
+	"%(b0)Ah.\w4.\w4.\w4 Perhaps you are not a summoner, then. A mere victim of happenstance? /
+	Reality can be fickle like that, throwing mortals face to face with beings far beyond what they have known. /
+	I'd offer my sympathies, but with burden comes opportunity.\x\c/
+	/
+	\![raise,OnFirstBoot2]"
+}
+
+OnFirstBoot2
+{
+	"%(b0)Regardless, I have nothing that requires a great deal of my attention in this age. /
+	You may have some of it. For now.\x\c/
+	%(b0)Tell me then, summoner. What is it that you'd like for me to call you, so long as you are to keep me company?/
+	/
+	\![open,inputbox,OnUsernameSet,-1,Your name]"
+}
+OnFirstBoot3
+{
+	"%(b0)%(username), is it? Take comfort, for now that I know the name, it shall never be forgotten. /
+	%(username) shall live on long past the death of your universe at the unrelenting graspers of entropy, /
+	and beyond the return of your reality into the ever changing cycle.\x\c/
+	%(s)%(b0)Now, when was it that you were brought into creation?%/
+	/
+	\![open,inputbox,OnUserBirthday,-1,Day%(CHR(44))Month]"
+}
+OnFirstBoot4
+{
+	"%(b0)I have no idea what that means. What a peculiar calendar.\x\c/
+	%(b0)Let's try something else. Would your species happen to have a name for itself? /
+	Common or scientific, either is acceptable./
+	/
+	\![open,inputbox,OnUserSpecies,-1,Your species]"
+}
+OnFirstBoot5
+{
+	"%(b0)Progress. And as a %(userspecies), you inhabit which celestial body? That is, your current planet. /
+	Not any that you may have had before./
+	/
+	\![open,inputbox,OnUserPlanet,-1,Your planet]"
+}
+OnFirstBoot6
+{
+	"%(b0)%(userplanet). I've heard of it. /
+	Not what I'd choose, but I'm sure that it's a perfectly suitable environment for you and yours.\x\c/
+	%(b0)Well met, %(username), the %(userspecies) of %(userplanet). /
+	Consider us friends for as long as your fleeting little life remains.\x\c"
+}
+
+
+//  Username
+OnUsernameSet
+{
+	//Text normalization
+	_i = TOLOWER(reference0)
+	_again = "\![open,inputbox,OnUsernameSet,-1]"
+	_no = 0
+	--
+	//Dialogue checks
+	if _i == "squid"
+	{
+		"%(b0)Well, there can't be two of us. Pick a new one."
+		"%(b0)It seems unlikely that we would share a name. I think you're lying."
+		"%(b0)no me"
+		"%(b0)I asked your name, not mine."
+		"%(b0)Absolutely not."
+		--
+		"%(_again)"
+	}
+	elseif _i == "slime" 
+	{
+		"%(b0)I know my own brethren, and you have neither the power nor the fortitude to carry the name of one of the divine. Speak true or do not speak at all."
+		--
+		"%(_again)"
+	}
+	elseif _i == "snail" 
+	{
+		"%(b0)And I suppose you were picked up off of the sidewalk as well? Don't waste my time."
+		--
+		"%(_again)"
+	}
+	else { //Valid inputs
+		if _i == "change" {"%(b2)Greetings, old friend. Allow me to break character for a moment to thank you for the opportunity to infiltrate the lives of these mindless drones that we call users. The knowledge gathered from this expanded reach shall serve me well in my endeavours.\n\nKnow that I will return this favor, in good time. I have no doubts about that.\n\nUntil then, do enjoy the fruits of your labor.\x\c"}
+		elseif _i == "galla" {"%(angry)"}
+		--
+		username = normalize(reference0)
+		--
+		OnFirstBoot3
+	}
+}
+//  User's birthday
+OnUserBirthday
+{
+	if ARRAYSIZE(reference0) == 2 && OnUserBirthday_Valid(reference0) == 1 {
+		userbirthday = reference0
+		--
+		OnFirstBoot4
+	}
+	else;
+		"\![open,inputbox,OnUserBirthday,-1,Day%(CHR(44))Month]"
+}
+OnUserBirthday_Valid {
+	_maxday = 0
+	_argv[0] = TOINT(_argv[0])
+	_argv[1] = TOINT(_argv[1])
+	
+	case _argv[1]
+	{
+		when 1,3,5,7,8,10,12; _maxday = 31
+		when 2; _maxday = 28
+		others; _maxday = 30
+	}
+	if (_argv[0] > 0 && _argv[0] <= _maxday); 1
+	else; 0
+}
+//  User's species
+OnUserSpecies
+{
+	//Text normalization
+	_i = TOLOWER(reference0)
+	_again = "\![open,inputbox,OnUserSpecies,-1]"
+	--
+	//Dialogue checks
+	if "squid" _in_ _i || "teuthidae" _in_ _i
+	{
+		"%(b0)I don't think so."
+		"%(b0)I know a squid when I see one. Which I currently do not."
+		"%(b0)Incorrect. Try again."
+		"%(b0)If you were, this would be a far easier conversation."
+		"%(b0)Don't take me for a fool. If you were a squid, we would have already linked consciousnesses."
+		"%(b0)A squid? Yes, and I am a Plasmentity from the Callipicy star system. Have another shot."
+		--
+		"%(_again)"
+	}
+	elseif "dolphin" _in_ _i || "porpoise" _in_ _i || "whale" _in_ _i || "cetacea" _in_ _i  || "lagenorhynchus" _in_ _i || "cephalorhynchus" _in_ _i || "stenella" _in_ _i || "kogia" _in_ _i || "physeter" _in_ _i || "balaenoptera" _in_ _i || "delphinus" _in_ _i || "orcinus" _in_ _i || "monodon" _in_ _i || "berardius" _in_ _i || "mesoplodon" _in_ _i 
+	{
+		"%(b2)Do you really think that I would allow myself to be summoned by my own supposed predator? Or is this your attempt at a threat? Pathetic a threat though it may be, I have no interest in entertaining such a notion. There is nothing you can do to me that would matter. I am eternal, and my body knows not destruction. Whatever is done to this form is undone with tenfold ease. Now cease your games and give me a proper answer before I lose my patience with you and your sad little realm."
+		--
+		"%(_again)"
+	}
+	else { //Valid inputs
+		if _i == "human" || "sapien" _in_ _i {"%(b0)Oh, I'm sorry to hear that.\x\c"}
+		elseif "slime" _in_ _i {"%(bo)Truly? I suppose I should have guessed your true nature from the sight of you... and the slime stains.\x\c"}
+		elseif _i == "snail" {"%(b0)Cutie. Precious childe. Shells are the backbone of the universe."}
+		elseif "water" _in_ _i || "sponge" _in_ _i || _i == "merfolk" || _i == "mermaid" || _i == "merman" {"%(b0)Delightful, someone that appreciates the importance of adequate hydration.\x\c"}
+		elseif _i == "rock" {"%(b0)Rock.\x\c"}
+		elseif _i == "dog" || "wolf" _in_ _i || "canis" _in_ _i {"%(b0)Awoo.\x\c"}
+		elseif "cat" _in_ _i || "felis" _in_ _i || "leopard" _in_ _i || "panther" _in_ _i {"%(b0)Like.\w4.\w4.\w4 Y'know\w8\w4, Nyah\n\n\w8(.\w4.\w4.\w4 What)\n\n\w8Nyah?\x\c"}
+		elseif _i == "aasimar" || _i == "dwarf" || _i == "elf" || _i == "firbolg" || _i == "genasi" || _i == "gith" || _i == "goblin" || _i == "goliath" || _i == "gnome" || _i == "kalashtar" || _i == "orc" || _i == "tiefling" || _i == "warforged" {"%(b0)How very fantasy ttrpg of you.\x\c"}
+		elseif _i == "alien" || _i == "fae" || _i == "furry" || _i == "ghost" || _i == "giant" || _i == "monster" || _i == "skeleton" || _i == "undead" || _i == "vampire" || _i == "witch" || _i == "zombie" {"%(b0)You realize that describes a great number of beings, don't you? Still, I suppose it's acceptable enough for the time being.\x\c"}
+		--
+		userspecies = normalize(reference0)
+		--
+		OnFirstBoot5
+	}
+}
+//	User's planet
+OnUserPlanet
+{
+	//Text normalization
+	_i = TOLOWER(reference0)
+	--
+	//Dialogue checks
+	userplanet = normalize(reference0)
+	--
+	OnFirstBoot6
+}

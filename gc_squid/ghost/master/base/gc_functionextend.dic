@@ -1,0 +1,219 @@
+//Balloons
+b0
+{
+	if balloonnr == 0; "\b[0]"
+	else; "\b[%(balloonnr)0]"
+}
+b2
+{
+	if balloonnr == 0; "\b[2]"
+	else; "\b[%(balloonnr)2]"
+}
+//Surface
+s
+{
+	if squidnr == 0; "\s[9900]"
+	elseif squidnr < 10; "\s[990%(squidnr)]"
+	else; "\s[99%(squidnr)]"
+}
+angry
+{
+	"\i[21]"
+}
+
+
+//Text
+it {
+	"\f[italic,1]"
+}
+itoff {
+	"\f[italic,0]"
+}
+normalize
+{
+	_buffer = SUBSTR(_argv[0],0,1)
+	_argv[0] = TOLOWER(_argv[0])
+	_argv[0] = ERASE(_argv[0],0,1)
+	_argv[0] = INSERT(_argv[0],0,TOUPPER(_buffer))
+	_argv[0]
+}
+
+
+RND //check for random percent chance
+{
+	_nb = TOINT(_argv[0]) //% chance of happening
+	
+	if RAND(100) <= _nb; 1
+	else; 0
+}
+
+ARRINFO //check for value in array
+{
+	//_argv[0] = array name to check in
+	//_argv[1] = value to check
+	if GETTYPEEX(_argv[0]) == 4; _argv[0] = _argv[0]
+	elseif GETTYPEEX("%(_argv[0])Ar") == 4; _argv[0] = _argv[0] + "Ar"
+	else; return
+	_arr = EVAL("%(_argv[0])")
+	if ASEARCH(_argv[1],_arr) != -1; 1
+	else; 0
+}
+
+DAY //check if current date/day is given date/day
+{
+	_date = _argv[0]
+		//check if given date is a variable
+	if ISVAR(_date); _date = EVAL("%(_date)")
+
+	if ',' _in_ _date {
+		if _date == "%day,%month"; 1
+		else; 0
+	}
+	else {
+		if _date == "%day"; 1
+		else; 0
+	}
+}
+
+TimeSlot //check for day stages
+{
+	case hour
+	{
+		when 5-8; "earlymorning"
+		when 9-11; "morning"
+		when 12-14; "lunch"
+		when 15-17; "afternoon"
+		when 18-20; "evening"
+		when 21-24; "latenight"
+		others; "midnight"
+	}
+}
+
+DRESS //check state of dress. requires dresslogAr
+{
+	if ISVAR("dresslogAr") == 0; dresslogAr = IARRAY
+	_line = ""; _nb = -1; _state = 0
+	foreach dresslogAr; _item
+	{
+		if _item[1] == _argv[0] && _item[2] == _argv[1] {
+			_line = _item
+			_nb = TOINT(ARRAYSIZE(_line)-2)
+			_state = _line[_nb]
+			break
+		}
+	}
+	_state = TOINT(_state)
+	_state
+}
+
+
+totalinfo //return total time info
+{
+	_result = IARRAY
+	_result ,= passmintotal/60
+	_result ,= passmintotal%60
+	_result
+}
+ghostupinfo //return current boot time info  
+{
+	_result	 = IARRAY
+	_result	,= ghostupmin/60
+	_result	,= ghostupmin%60
+	_result
+}
+
+
+//------------------------------------------------------------------------------
+// Array handler functions
+//------------------------------------------------------------------------------
+ARRADD //Add something to the end of an array (in sakuraskript)
+{
+	//_argv[0] = array name to add to
+	//_argv[1-n] = values to add
+	if GETTYPEEX(_argv[0]) == 4; _argv[0] = _argv[0]
+	elseif GETTYPEEX("%(_argv[0])Ar") == 4; _argv[0] = _argv[0] + "Ar"
+	else; return
+	_return = "\![raise,OnArrayAdd,%(_argv[0])"
+	for _i = 1; _i < _argc; _i++
+	{
+		if !ARRINFO(_argv[0],_argv[_i]);
+			_return += "," + _argv[_i]
+	}
+	_return += "]"
+	_return
+}
+ARRADD_0 //(outside sakuraskript)
+{
+	if GETTYPEEX(_argv[0]) == 4; _argv[0] = _argv[0]
+	elseif GETTYPEEX("%(_argv[0])Ar") == 4; _argv[0] = _argv[0] + "Ar"
+	else; return
+	for _i = 1; _i < _argc; _i++
+	{
+		if !ARRINFO(_argv[0],_argv[_i]);
+			EVAL(_argv[0]+",= '"+_argv[_i]+"'")
+	}
+}
+OnArrayAdd { //helper function to avoid values being evaluated too early
+	if ARRAYSIZE(reference) < 2; return
+	for _i = 1; _i < ARRAYSIZE(reference); _i++
+	{
+		EVAL(reference[0]+",= '"+reference[_i] + "'")
+	}
+}
+ARRDEL //Delete something from an array (in sakuraskript)
+{
+	//_argv[0] = array name to delete from
+	//_argv[1-n] = values to delete
+	if GETTYPEEX(_argv[0]) == 4; _argv[0] = _argv[0]
+	elseif GETTYPEEX("%(_argv[0])Ar") == 4; _argv[0] = _argv[0] + "Ar"
+	else; return
+	_nb = 0; _return = "\![raise,OnArrayDelete,%(_argv[0])"
+	_arr = EVAL("%(_argv[0])")
+	for _i = 1; _i < _argc; _i++
+	{
+		if ARRINFO(_argv[0],_argv[_i]) {
+			_nb = ASEARCH(_argv[_i],_arr)
+			_return += "," + _nb
+		}
+	}
+	_return += "]"
+	_return
+}
+ARRDEL_0 //(outside sakuraskript)
+{
+	if GETTYPEEX(_argv[0]) == 4; _argv[0] = _argv[0]
+	elseif GETTYPEEX("%(_argv[0])Ar") == 4; _argv[0] = _argv[0] + "Ar"
+	else; return
+	_nb = 0; _arr = EVAL("%(_argv[0])")
+	for _i = 1; _i < _argc; _i++
+	{
+		if ARRINFO(_argv[0],_argv[_i]) {
+			_nb = ASEARCH(_argv[_i],_arr)
+			EVAL(_argv[0]+"["+_nb+"]=IARRAY")
+		}
+	}
+}
+OnArrayDelete { //helper function to avid values being deleted if script isn't even called
+	if ARRAYSIZE(reference) < 2; return
+	_nb = -1
+	for _i = 1; _i < ARRAYSIZE(reference); _i++
+	{
+		_arr = reference[0]
+		_nb = TOINT(reference[_i])
+		EVAL("%(reference[0])[%(_nb)] = IARRAY")
+	}
+}
+ARRSHUFFLE //shuffle an array
+{
+	_arr = _argv
+	for _i = _argc-1; _i > 0; _i--
+    {
+        _rand = RAND(_argc)
+  
+        // Swap _arr[i] with the element at random index 
+        _temp = _arr[_i]
+        _arr[_i] = _arr[_rand]
+        _arr[_rand] = _temp 
+    }
+	_arr
+}

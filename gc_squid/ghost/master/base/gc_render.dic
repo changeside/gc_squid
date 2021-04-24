@@ -1,0 +1,48 @@
+
+//Basic render function
+OnRender 
+{
+	"\1\s[-1]\0%(s)"
+}
+//Occurs on reload etc.
+OnSurfaceRestore { OnRender }
+//Occurs on un-minimizing.
+OnWindowStateRestore { OnRender }
+//After changing to this ghost.
+OnGhostChanged { 
+	OnRender 
+	--
+	_fb = CheckInputs
+	if _fb != ""; _fb
+	else {
+		"%(b0)Rejoice! I have answered your summoning, despite how distracted you must have been with your.\w4.\w4.\w4 other little friends."
+		"%(b0)Decided to acknowledge me again, have you? You're quite lucky that I would never be bitter about being ignored."
+		"%(b0)Oh, are you sure you can waste your limited existence with one as great as I? You've had a lifetime pretending you don't know me before now."
+	}
+}
+//Changing to a different ghost
+OnGhostChanging {
+	"%(b0)I understand. I hope this new companion of yours helps you recover from our time together. I know well that my presence can disintegrate those unable to handle its intensity."
+	"%(b0)Coward."
+	"%(b0)Fine. I'll occupy myself elsewhere."
+}
+//Squid being called
+OnGhostCalled {
+	OnRender
+	--
+	CheckInputs
+}
+//Squid calling someone else
+OnGhostCalling {
+	"%(b0)I'm not particularly fond of sharing."
+	"%(b0)%(username), I wish to speak with you. Why do you feel as though you need more than me in your life? It's concerning."
+	"%(b0)Are you bringing out one of your %(userspecies) friends? I did not ask for this."
+}
+
+//Display changes to save
+OnDisplayChange
+{
+	displaybpp = reference0
+ 	displaywidth = reference1
+	displayheight = reference2
+}

@@ -1,0 +1,13 @@
+﻿//UTF-8 = english charset; Shift_JIS = japanese charset
+charset,UTF-8
+//Always type ghost for ghost files			
+type,ghost
+//Name of the main ghost (Sakura) called when installed by other Ghosts			
+name,Squid
+//Folder path name; change accordingly		
+directory,gc_squid
+
+//balloon to install from main ghost path?
+balloon.directory,squidloon
+
+//directory\thumbnail.pnr is a renamed png to enable a transparent ghost thumbnail

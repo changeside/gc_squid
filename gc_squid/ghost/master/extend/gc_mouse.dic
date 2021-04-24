@@ -1,0 +1,4 @@
+OnMouseDoubleClick
+{
+   if CheckInputs == ""; OnMenu
+}

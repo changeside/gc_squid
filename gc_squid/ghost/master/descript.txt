@@ -1,0 +1,39 @@
+﻿//UTF-8 = english charset; Shift_JIS = japanese charset
+charset,UTF-8		
+//Always shell for a Ghost
+type,ghost		
+//Ghost name (right click menu etc.)
+name,Squid
+//Sakura name, Kero name, etc
+sakura.name,Squid
+
+//Author name
+craftman,galla_change
+//Update website	
+//homeurl,url								
+
+
+//Sets default surfaces for characters
+sakura.seriko.defaultsurface,9900
+kero.seriko.defaultsurface,10
+
+//Toggles ghost communication (default 1)
+sstp.allowcommunicate,1			
+
+//1 disables lip-sync (default 0)
+don't need seriko talk,0	
+
+//Change name according to standard balloon used
+balloon,squidloon
+//Toggles balloon move lock (default false)
+balloon.dontmove,false		
+
+//Sets ghost tray icon
+icon,icon.ico		 
+//Sets ghosts tray icon when minimized
+icon.minimize,icon_min.ico 
+
+//Defines SHIORI, in this case yaya.dll
+shiori,yaya.dll		
+
+

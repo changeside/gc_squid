@@ -1,0 +1,218 @@
+
+
+//------------------------------------------------------------------------------
+//  Booting sequences
+//------------------------------------------------------------------------------
+CheckInputs {
+	_fb = ""
+	//Check if firstboot inputs were disrupted
+	if username == ""; _fb = "OnUsernameSet"
+	elseif ARRAYSIZE(userbirthday) != 2; _fb = "OnUserBirthday"
+	elseif userspecies == ""; _fb = "OnUserSpecies"
+	elseif userplanet == ""; _fb = "OnUserPlanet"
+
+	//If firstboot was disrupted break OnBoot and go to the firstboot
+	if _fb[0] != ""; OnBoot_Firstbootdisrupted(_fb)
+	else; ""
+}
+OnBoot
+{
+	OnRender
+	--
+	if !DAY(squidbirthday); birthdaycheck[0] = 0
+	if !DAY(userbirthday); birthdaycheck[1] = 0
+	--
+	_fb = CheckInputs
+	--
+	if _fb == ""; OnBoot_Dialogue
+	else; _fb
+}
+OnBoot_Firstbootdisrupted
+{
+	case _argv[0] {
+		when "OnUsernameSet";
+			"%(b0)There seems to have been some misunderstanding between us.\x\c%(b0)When I asked you what your name was, I was intending to receive an answer. Not for you to send me back so you can go off and do.\w4.\w4.\w4 whatever it is that you do.\x\c%(b0)I might know what you do when you're not here if you had given us the chance to get to know each other instead of being so disgustingly rude.\x\c%(b0)So, let's try this again. What's your name?"
+		when "OnUserBirthday";
+			"%(b0)If you don't want to tell me when you were created, you don't have to be rude about it. Do what every other sentient being does and make up some numbers."
+		when "OnUserSpecies";
+			"%(b0)It seems asking what sort of being I'm communicating with has hit a nerve. Allow me to assure you, it makes no difference to me what you are. I will think no less of you than I do now."
+		when "OnUserPlanet";
+			"%(b0)Wow.\w4 Okay.\w4 Look, if you're going to drag part of my consciousness all the way out here to speak to you, the least you could do is tell me where, exactly, I've been dragged. None of this walking away in the middle of giving me my well deserved answers."
+	}
+	--
+	"\x\c\![raise,OnUserInputCancel,%(_argv)]" //Start input box
+}
+OnBoot_Dialogue : nonoverlap
+{
+	"%(b0)Greetings, summoner."
+	"%(b0)Hello once more, %(username) of %(userplanet)."
+	"%(b0)It is I, the Squid."
+	"%(b0)I am here to be entertained."
+	"%(b0)Pardon my lack of overwhelming radiance. I am currently linking with several of my mindbonded, and thus I can only be astoundingly radiant for you."
+	"%(b0)Yo."
+	"%(b0)It's about time you showed up. There's only so long you can expect me to watch you not paying attention to me."
+	"%(b0)It's an especially squidly day, isn't it?"
+	"%(b0)%(username), %(username), %(username). I was wondering when you would decide to show your face."
+
+}
+
+//------------------------------------------------------------------------------
+//  Closing sequences
+//------------------------------------------------------------------------------
+OnClose //Forced
+{
+	"\-"
+}
+
+OnClose_Own //Through menu
+{
+	"\-"
+}
+
+
+//------------------------------------------------------------------------------
+// Shiori functions
+//------------------------------------------------------------------------------
+
+//Parser
+OnTranslate {
+	_talk = reference0
+	_talk = EVAL('"' + REPLACE(_talk,'"','" + CHR(0x22) + "') + '"')
+	//_talk = "\_?" + _talk //bugfix
+	TOSTR(_talk)
+}
+OnAnchorSelect {
+	if "http://" _in_ reference0 || "https://" _in_ reference0;
+		"\j[%(reference0)]"
+}
+
+//Input functions
+OnUserInputCancel //can be used to ensure input; reference0 = Function the box calls
+{
+	_txt = ""; _itext = ""
+	case reference0 {
+		when "OnUsernameSet"; _itext = ",Your name"
+		when "OnUserBirthday"; _itext = ",Day%(CHR(44))Month"
+		when "OnUserSpecies"; _itext = ",Your species"
+		when "OnUserPlanet"; _itext = ",Your planet"
+	}
+
+		_txt = "\![open,inputbox," + reference0 + ",-1" + _itext + "]"
+	_txt
+}
+OnKeyPress {
+	//reference0 = key pressed. Only on ghost focus.
+}
+
+
+//Shiori time Functions
+OnSecondChange {
+	//OnTimer_Count
+}
+OnMinuteChange {
+	//if 5-10 min after boot
+	//Birthday checks
+	if !birthdaycheck[0] && DAY('%(squidbirthday[0],%(squidbirthday[1]))') && year > squidbirthday[2] {
+		if (ghostupmin > 5 && RND(80)) && CheckInputs == ""; OnBirthday_Squid
+	}
+	if DAY(userbirthday) && !birthdaycheck[1] && (ghostupmin > 5 && RND(80)) && CheckInputs == ""; OnBirthday_User
+}
+OnHourTimeSignal {
+	//Notify only
+}
+
+
+//Updates
+OnUpdateCheckComplete {
+	//reference0 = amount of files(?); none = no new files
+}
+OnUpdateCheckFailure {}
+OnUpdateBegin {}
+OnUpdateReady {
+	//reference0 = new files
+}
+OnUpdate.OnDownloadBegin {
+	//reference0 = filename
+}
+OnUpdateComplete {
+	//reference0 = amount of files(?); none = no updated
+}
+OnUpdateFailure {
+	//reference0 = error reason
+}
+
+//Installs
+OnInstallBegin {}
+OnInstallComplete {}
+OnInstallFailure {}
+OnInstallRefuse {}
+
+//Deinstalling
+OnVanishSelecting {}
+OnVanishSelected {}
+
+//Low battery refernce0 = percentage
+OnBatteryLow {
+	"%(b0)It appears that the connection between us is weakening. You may want to check your energy reserves, lest the strain of being near me while weak cause you to implode."
+}
+OnBatteryCritical {
+	"%(b0)Death comes for all trapped within the flow of time, and right now, it's coming for you and your transdimensional communications device."
+}
+
+//------------------------------------------------------------------------------
+// Functions related to ssp menu/aya
+//------------------------------------------------------------------------------
+On_homeurl { }
+On_username { username }
+On_recommendrootbutton.caption { "Reference Sites" }
+On_sakura.recommendsites
+{
+	"SSP/
+		%ASC(1)http://ssp.shillest.net/%ASC(2)/
+	Ukagaka Dream Team Tumblr/
+		%ASC(1)https://ukagakadreamteam.tumblr.com/%ASC(2)"
+}
+On_portalrootbutton.caption { "Developers sites" }
+On_sakura.portalsites
+{
+
+}
+On_updatebutton.caption { "Update" }
+On_vanishbutton.caption { "Uninstall" }
+On_vanishbutton.visible
+{
+ 	if deletetrue == 1; "1"
+	else; "0"
+}
+On_headlinesenserootbutton.caption { "News" }
+On_ghostrootbutton.caption { "Change Ghost" }
+On_callghostrootbutton.caption { "Call Ghost" }
+On_otherghostname
+{
+	ghostexlist = reference
+	ghostexcount = ARRAYSIZE(ghostexlist)
+}
+On_shellrootbutton.caption { "Change shell" }
+On_dressuprootbutton.caption { "Clothes" }
+On_readmebutton.caption {"Information" }
+On_quitbutton.caption{ "Quit" }
+
+On_version { GETSETTING(AYAINFO_VERSION) }
+On_craftman { "umeici" }
+On_craftmanw { "?럖" }
+On_name { "AYA" }
+
+On_uniqueid { uniqueid = reference0 }
+
+On_hwnd
+{
+	sakurahwnd    = reference0[0]
+	kerohwnd      = reference0[1]
+	sakurablnhwnd = reference1[0]
+	keroblnhwnd   = reference1[1]
+}
+
+On_\person
+{
+ 	person
+}

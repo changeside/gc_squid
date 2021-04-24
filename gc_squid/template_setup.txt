@@ -1,0 +1,24 @@
+!Important!
+Always put // commentary in it's own line for files like install.txt. It will not work behind instructions!
+
+
+
+Ghost
+[X] directory rename
+
+[X] \install.txt
+[ ] \readme.txt
+[X] \developer_options.txt | delete if unneeded otherwise specify files to exclude
+
+[-] \shell\master\descript.txt
+[ ] \shell\master\ | general adjustments/additions
+
+[-] \ghost\master\descript.txt
+[ ] \ghost\master\icon.ico
+[ ] \ghost\master\plugin\ | add/delete as needed
+[ ] \ghost\master\img\ | add/delete as needed
+[ ] \ghost\master\base\ | add/delete as needed
+[ ] \ghost\master\extend\ | add/delete as needed
+[ ] \ghost\master\yaya.txt | change/add files
+
+Balloon

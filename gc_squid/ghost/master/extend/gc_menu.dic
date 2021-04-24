@@ -1,0 +1,100 @@
+OnMenu
+{
+    //Customization + submenu
+	//Tasks + submenu (fake!)
+	//Timer
+	//Option
+	//-> like the normal change name, pronouns, and we were having species and planet as well
+	//-> eventually a toggle for the gore for hard bullying
+	//Goodbye and close
+
+	"%(b0)\_l[0,25]/
+	\q[Customization,OnCustomize]\n/
+	\q[Tasks,OnTask]\n/
+	\q[Timer,OnTimer]\n/
+	\q[Options,OnOption]\n/
+	\q[Goodbye!,OnClose_Own]\n/
+	\q[Nevermind,script:\e]"
+}
+
+OnCustomize
+{
+	_txt = ""; _font = ("","")
+	if reference0 != "balloon"; _font = ("\f[bold,1]","\f[bold,0]")
+	else; _font = ("\f[bold,0]","\f[bold,1]")
+	
+	for _i = 0; _i < 30; _i++
+	{
+		if reference0 != "balloon" {
+			if _i == squidnr; _txt += "*"
+		}
+		else {
+			if _i == balloonnr; _txt += "*"
+		}
+		_txt += "\q[" + OnCustomize_Names[_i] + ",OnCustomize_Set," + reference0 + "," + _i + "]" + "\n"
+
+	}
+	//Printing the menu
+	"%(b2)\_q\![set,autoscroll,disable]/
+	%(_font[0])\q[Squid,OnCustomize,squid]\_l[@30]%(_font[1])\q[Balloon,OnCustomize,balloon]\f[bold,0]\_l[@30]\q[Back,OnMenu]\n\n/
+	%(_txt)"
+}
+OnCustomize_Names : array
+{
+	"Old Rose"
+	"Amaranth"
+	"Crimson"
+	"Brick"
+	"Persimmon"
+	"Coral"
+	"Mango"
+	"Fawn"
+	"Mantis"
+	"Moss"
+	"Jade"
+	"Verdigris"
+	"Cerulean"
+	"Iceberg"
+	"Cosmic"
+	"Yonder"
+	"Baby Blue"
+	"Quartz"
+	"Thistle"
+	"Lilac"
+	"Jazzberry"
+	"Orchid"
+	"Wisteria"
+	"Ochre"
+	"Chestnut"
+	"Tumbleweed"
+	"Vanilla"
+	"Glass"
+	"Smoke"
+	"Ink"
+}
+OnCustomize_Set
+{
+	if reference0 == ""; reference0 = "squid"
+	--
+	EVAL(reference0+"nr="+reference1)
+	--
+	if reference0 == "squid"; "%(s)"
+	--
+	OnCustomize
+}
+
+
+OnTask
+{
+
+}
+
+OnTimer
+{
+
+}
+
+OnOption
+{
+
+}
