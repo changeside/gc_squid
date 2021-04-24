@@ -1,11 +1,11 @@
 file,developer_options.txt6ed4918091de9694e03d320b72f51a88size=46
-file,ghost/master/base/gc_bootend.dic0215cb367f8e9f59cd34d91182d66247size=8974
+file,ghost/master/base/gc_bootend.dic17581d1a6e9f1c651fe2a0c3240d74dfsize=9022
 file,ghost/master/base/gc_firstboot.dic11ccd17aa5900d7833555b3120fea89bsize=10694
 file,ghost/master/base/gc_functionextend.dicd97eb00a8ecf1bf263f040087b7e5585size=4890
 file,ghost/master/base/gc_render.dic9dcb1a3bbc0c7978cd6cc081be016f97size=1868
 file,ghost/master/descript.txt08e7c43b724ac054caa77d0a3336cb64size=930
 file,ghost/master/extend/gc_aitalk.dic90ab503532a8e03863582a3d2752c3fcsize=10167
-file,ghost/master/extend/gc_menu.dic6c42940fbb02cd4a3380bf54acd0e1f3size=3495
+file,ghost/master/extend/gc_menu.dicbb15aa14589096203d764c5df91e9f42size=3505
 file,ghost/master/extend/gc_mouse.dic0647d7394d74c285e08f4afcdf5ae76fsize=77
 file,ghost/master/extend/gc_timer.dicbc43a54d2ad20c8ffcb9b44571e5f18dsize=2755
 file,ghost/master/icon.ico69db222021bdd73e25eabcbf86daebcesize=100689

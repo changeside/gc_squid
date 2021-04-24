@@ -140,7 +140,8 @@ OnHourTimeSignal {
 //Updates
 OnUpdateCheckComplete {
 	//reference0 = amount of files(?); none = no new files
-	updatetrue = 1
+	if reference0 != "none"; updatetrue = 1
+	else; updatetrue = 0
 }
 OnUpdateCheckFailure {}
 OnUpdateBegin {}
