@@ -17,6 +17,8 @@ CheckInputs {
 }
 OnBoot
 {
+	"\![updatebymyself,checkonly]"
+	--
 	OnRender
 	--
 	if !DAY(squidbirthday); birthdaycheck[0] = 0
@@ -138,6 +140,7 @@ OnHourTimeSignal {
 //Updates
 OnUpdateCheckComplete {
 	//reference0 = amount of files(?); none = no new files
+	updatetrue = 1
 }
 OnUpdateCheckFailure {}
 OnUpdateBegin {}
@@ -150,6 +153,8 @@ OnUpdate.OnDownloadBegin {
 }
 OnUpdateComplete {
 	//reference0 = amount of files(?); none = no updated
+	updatetrue = 0
+	--
 	"%(b0)Your update has been completed. How are you feeling? Headache? Nausea? Crippling fear of a potential porpoise behind you?\n\n\w8I may be projecting that last one."
 }
 OnUpdateFailure {

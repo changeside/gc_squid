@@ -16,6 +16,8 @@ OnWindowStateRestore {
 }
 //After changing to this ghost.
 OnGhostChanged { 
+	"\![updatebymyself,checkonly]"
+	--
 	OnRender 
 	--
 	_fb = CheckInputs
@@ -34,6 +36,8 @@ OnGhostChanging {
 }
 //Squid being called
 OnGhostCalled {
+	"\![updatebymyself,checkonly]"
+	--
 	OnRender
 	--
 	CheckInputs

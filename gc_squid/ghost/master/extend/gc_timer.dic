@@ -1,13 +1,6 @@
-
-//Thing to do:
-//Be able to set the timer
-//SETTINGS
-//toggle timer show on off
-//toggle timer nature (count up, count down)
-
 OnTimer_Init
 {
-    timer = (0,2,20) //hour,minute,seconds
+    timer = (0,0,0) //hour,minute,seconds
     timerremember = timer
     timeractive = 0 //0=don't count; 1=count; 2=pause
     timershow = 1 //0=show menu; 1= hide menu

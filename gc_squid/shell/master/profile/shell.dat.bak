@@ -4,7 +4,7 @@ char0.bind.savearray,158=0 157=0 156=0 155=1
 balloon,C:\Users\Chang\Desktop\ssp_2_4_85f\balloon\Dev\squidloon\
 Char1.balloon.isleft,1
 inputbox.left,1019
-balloon0.offset,-24.-93
+balloon0.offset,-45.6
 scriptbox.left,1022
 Char0.centery,560
 balloon1.offset,685.-171

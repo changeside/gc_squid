@@ -21,11 +21,14 @@ validrect.right,-24
 validrect.bottom,-24
 
 font.name,Metamorphous-Regular.ttf
-font.height,15
+font.height,13
 
 font.color.r,0
 font.color.g,0
 font.color.b,0
+font.shadowcolor.r,70
+font.shadowcolor.g,70
+font.shadowcolor.b,70
 
 
 //----------anchor

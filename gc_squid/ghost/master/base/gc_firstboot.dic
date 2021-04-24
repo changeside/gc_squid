@@ -13,6 +13,7 @@ OnVariables
 	birthdaycheck = (0,0) //[0] squid, [1] human; 0=not told; 1=told
 	togglefirst = 1 //first boot
 	aitalkinterval = 270
+	updatetrue = 0
 	--
 	OnTimer_Init
 }

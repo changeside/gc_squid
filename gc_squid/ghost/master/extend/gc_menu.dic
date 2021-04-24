@@ -7,13 +7,19 @@ OnMenu
 	//-> like the normal change name, pronouns, and we were having species and planet as well
 	//-> eventually a toggle for the gore for hard bullying
 	//Goodbye and close
-
+	_update = ""
+	if updatetrue; _update = "\_l[130]\q[Update,OnMenu_Update]"
+	--
 	"%(b0)\_l[0,25]/
 	\q[Customization,OnCustomize]\n/
 	\q[Timer,OnTimer]\_l[@10]\q[(Settings),OnTimer_Settings]\n/
 	\q[Options,OnOption]\n/
 	\q[Goodbye!,OnClose_Own]\n/
 	\_l[0,130]\q[Nevermind,script:\e]"
+}
+OnMenu_Update
+{
+	"\![updatebymyself]"
 }
 
 OnCustomize
