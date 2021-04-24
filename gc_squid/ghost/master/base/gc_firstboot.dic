@@ -2,7 +2,7 @@
 //  First boot and variables set up
 //------------------------------------------------------------------------------
 OnVariables
-{
+{	//opens option instead of continuing firstboot?? FIX DEFINITELY
 	if ISVAR("balloonnr") == 0; balloonnr = 0
 	if ISVAR("squidnr") == 0; squidnr = 0
 	squidbirthday = (day,month,year) //day,month,year
@@ -11,6 +11,7 @@ OnVariables
 	userspecies = ""
 	userplanet = ""
 	birthdaycheck = (0,0) //[0] squid, [1] human; 0=not told; 1=told
+	togglefirst = 1 //first boot
 }
 OnFirstBoot
 {
@@ -87,7 +88,7 @@ OnFirstBoot3
 	"%(b0)%(username), is it? Take comfort, for now that I know the name, it shall never be forgotten. /
 	%(username) shall live on long past the death of your universe at the unrelenting graspers of entropy, /
 	and beyond the return of your reality into the ever changing cycle.\x\c/
-	%(s)%(b0)Now, when was it that you were brought into creation?%/
+	%(s)%(b0)Now, when was it that you were brought into creation?/
 	/
 	\![open,inputbox,OnUserBirthday,-1,Day%(CHR(44))Month]"
 }
@@ -108,6 +109,8 @@ OnFirstBoot5
 }
 OnFirstBoot6
 {
+	togglefirst = 0
+	--
 	"%(b0)%(userplanet). I've heard of it. /
 	Not what I'd choose, but I'm sure that it's a perfectly suitable environment for you and yours.\x\c/
 	%(b0)Well met, %(username), the %(userspecies) of %(userplanet). /
@@ -119,12 +122,15 @@ OnFirstBoot6
 OnUsernameSet
 {
 	//Text normalization
-	_i = TOLOWER(reference0)
-	_again = "\![open,inputbox,OnUsernameSet,-1]"
+	_i = normalize(reference0)
+	_i = TOLOWER(_i)
+	_again = "\![open,inputbox,OnUsernameSet,-1,Your name]"
 	_no = 0
 	--
 	//Dialogue checks
-	if _i == "squid"
+	if STRLEN(_i) < 1; "%(b0)Very hilarious.%(_again)"
+	elseif STRLEN(_i) >= 19; "%(b0)Unusually long name, surely. Please delight me with a nick.%(_again)"
+	elseif _i == "squid"
 	{
 		"%(b0)Well, there can't be two of us. Pick a new one."
 		"%(b0)It seems unlikely that we would share a name. I think you're lying."
@@ -152,30 +158,34 @@ OnUsernameSet
 		--
 		username = normalize(reference0)
 		--
-		OnFirstBoot3
+		if togglefirst; OnFirstBoot3
+		else; OnOption
 	}
 }
 //  User's birthday
 OnUserBirthday
 {
-	if ARRAYSIZE(reference0) == 2 && OnUserBirthday_Valid(reference0) == 1 {
+	reference0 = SPLIT(reference0,",")
+	reference0[0] = TOINT(reference0[0])
+	reference0[1] = TOINT(reference0[1])
+	--
+	if OnUserBirthday_Valid(reference0) == 1 {
 		userbirthday = reference0
 		--
-		OnFirstBoot4
+		if togglefirst; OnFirstBoot4
 	}
 	else;
 		"\![open,inputbox,OnUserBirthday,-1,Day%(CHR(44))Month]"
 }
 OnUserBirthday_Valid {
 	_maxday = 0
-	_argv[0] = TOINT(_argv[0])
-	_argv[1] = TOINT(_argv[1])
 	
 	case _argv[1]
 	{
 		when 1,3,5,7,8,10,12; _maxday = 31
 		when 2; _maxday = 28
-		others; _maxday = 30
+		when 4,6,9,11; _maxday = 30
+		others; _maxday = 0
 	}
 	if (_argv[0] > 0 && _argv[0] <= _maxday); 1
 	else; 0
@@ -184,11 +194,14 @@ OnUserBirthday_Valid {
 OnUserSpecies
 {
 	//Text normalization
-	_i = TOLOWER(reference0)
-	_again = "\![open,inputbox,OnUserSpecies,-1]"
+	_i = normalize(reference0)
+	_i = TOLOWER(_i)
+	_again = "\![open,inputbox,OnUserSpecies,-1,Your species]"
 	--
 	//Dialogue checks
-	if "squid" _in_ _i || "teuthidae" _in_ _i
+	if STRLEN(_i) < 1; "%(b0)Very hilarious.%(_again)"
+	elseif STRLEN(_i) >= 19; "%(b0)Unusually long name, surely. Please delight me with a nick.%(_again)"
+	elseif "squid" _in_ _i || "teuthidae" _in_ _i
 	{
 		"%(b0)I don't think so."
 		"%(b0)I know a squid when I see one. Which I currently do not."
@@ -218,17 +231,22 @@ OnUserSpecies
 		--
 		userspecies = normalize(reference0)
 		--
-		OnFirstBoot5
+		if togglefirst; OnFirstBoot5
+		else; OnOption
 	}
 }
 //	User's planet
 OnUserPlanet
 {
 	//Text normalization
-	_i = TOLOWER(reference0)
+	_i = normalize(reference0)
+	_i = TOLOWER(_i)
 	--
 	//Dialogue checks
-	userplanet = normalize(reference0)
+	if STRLEN(_i) < 1; "%(b0)Very hilarious.%(_again)"
+	elseif STRLEN(_i) >= 19; "%(b0)Unusually long name, surely. Please delight me with a nick.%(_again)"
+	else; userplanet = normalize(reference0)
 	--
-	OnFirstBoot6
+	if togglefirst; OnFirstBoot6
+	else; OnOption
 }

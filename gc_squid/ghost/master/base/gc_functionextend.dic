@@ -23,14 +23,16 @@ angry
 
 
 //Text
-it {
-	"\f[italic,1]"
-}
-itoff {
-	"\f[italic,0]"
-}
+it {"\f[italic,1]"}
+itoff {"\f[italic,0]"}
+b {"\f[bold,1]"}
+boff {"\f[bold,0]"}
+u {"\f[underline,1]"}
+uoff {"\f[underline,0]"}
+
 normalize
 {
+	_argv[0] = RE_REPLACE(_argv[0],"\\","")
 	_buffer = SUBSTR(_argv[0],0,1)
 	_argv[0] = TOLOWER(_argv[0])
 	_argv[0] = ERASE(_argv[0],0,1)

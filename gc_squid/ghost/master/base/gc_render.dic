@@ -7,7 +7,13 @@ OnRender
 //Occurs on reload etc.
 OnSurfaceRestore { OnRender }
 //Occurs on un-minimizing.
-OnWindowStateRestore { OnRender }
+OnWindowStateRestore { 
+	"%(b0)Does it make you feel better about yourself to act like you can control when I do and do not take up a portion of your mind?"
+	"%(b0)No wait put me back."
+	"%(b0)I think I'd like %(deco) for that particular interdimensional pocket."
+	--
+	OnRender 
+}
 //After changing to this ghost.
 OnGhostChanged { 
 	OnRender 

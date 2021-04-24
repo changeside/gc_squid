@@ -1,4 +1,4 @@
 OnMouseDoubleClick
 {
-   if CheckInputs == ""; OnMenu
+   if CheckInputs == "" && togglefirst == 0; OnMenu
 }

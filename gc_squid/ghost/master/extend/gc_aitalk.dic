@@ -4,7 +4,43 @@ AiTalkIntervalSet
 }
 AiTalk
 {
-
+    "%(bo)(It looks tired.)"
+    "%(b0)(It looks bored.)"
+    "%(b0)(It's watching you.)"
+    "%(b0)Blinks."
+    "%(b0).\w4.\w4.\w4 hungry."
+    "%(b0).\w4.\w4.\w4 %(bloop).\w4.\w4.\w4"
+    "%(b0).\w4.\w4.\w4 %(bloop) %(bloop).\w4.\w4.\w4"
+    "%(b0)%(bloop)"
+    "%(b0)%(bloop) %(bloop) %(bloop) %(bloop)"
+    "%(b0)May I offer you %(deco) in these trying times?"
+    "%(b0)Does %(userplanet) have many %(geo)s?\n\n\![*]\q[Yes,OnYesNoResponse]\n\![*]\q[No,OnYesNoResponse]\t\*"
+    "%(b0)Does %(userplanet) have many %(wild) %(geo)s?\w8\n\n\![*]\q[Yes,OnYesNoResponse]\n\![*]\q[No,OnYesNoResponse]\t\*"
+    "%(b0)Does %(userplanet) have many %(wild) %(geo)s of %(ofwhat)?\w8\n\n\![*]\q[Yes,OnYesNoResponse]\n\![*]\q[No,OnYesNoResponse]\t\*"
+    "%(b0)Are you at all accustomed to %(wild) environments?\w8\n\n\![*]\q[Yes,OnYesNoResponse]\n\![*]\q[No,OnYesNoResponse]\t\*"
+    "%(b0)I've been thinking of taking a visit to the %(wild) %(geo)s of %(ofwhat)."
+    "%(b0)How many %(geo)s would you say exist on %(userplanet)?\w8\![open,inputbox,OnGenericResponse,-1]"
+    "%(b0)How many %(wild) %(geo)s would you say exist on %(userplanet)?\w8\![open,inputbox,OnGenericResponse,-1]"
+    "%(b0)How typical are %(userspecies) populations around %(geo)s?\w8\![open,inputbox,OnGenericResponse,-1]"
+    "%(b0)How typical are %(userspecies) populations around %(wild) %(geo)s?\w8\![open,inputbox,OnGenericResponse,-1]"
+    "%(b0)What is it that the %(userspecies) might eat in a given day?\w8\![open,inputbox,OnGenericResponse,-1]"
+    "%(b0)I think it might be time for %(ofwhat)."
+    "%(b0)Could you fit one %(geo) in your graspers or are you too weak?"
+    "%(b0)Up and around the %(geo), it's time to take a trip."
+    "%(b0)Now and then, there's a meeting of divine minds in the %(wild) %(geo)s of %(ofwhat). I skipped the last one."
+    "%(b0)If there was anything in all of reality that you could do, what would you choose?\w8\![open,inputbox,OnGenericResponse,-1]"
+    "%(b0)I could do with a color change."
+    "%(b0)I should change my pattern again."
+    "%(b0)If you eat your minerals and flex hard enough, you might be able to grow more tentacles."
+    "%(b0)Your internet isn't nearly instantaneous enough."
+    "%(b0)Be sure to check for parasites often."
+    "%(b0)How solid would you estimate your physical body to be?\![open,inputbox,OnGenericResponse,-1]"
+    "%(b0)I don't need to move my tentacles this much to float. I'm just stimming."
+    "%(b0)Breathing is a pain."
+    "%(b0)%(username), remember to contemplate %(ofwhat) now and again."
+    "%(b0)%(username), %(username), %(username). Try saying %(username) with a beak."
+    "%(b0)%(species).\w4.\w4.\w4 I wonder how it tastes."
+    "%(b0)I didn't expect %(species) to smell like.\w4.\w4.\w4 %(it)that%(itoff)."
 }
 
 
@@ -35,15 +71,288 @@ OnBirthday_User
 }
 
 
+//------------------------------------------------------------------------------
+//  Generic responses
+//------------------------------------------------------------------------------
+OnGenericResponse
+{
+    _i = TOLOWER(reference0)
+    --
+    if "dolphin" _in_ _i || "porpoise" _in_ _i || "whale" _in_ _i || "cetacea" _in_ _i  || "lagenorhynchus" _in_ _i || "cephalorhynchus" _in_ _i || "stenella" _in_ _i || "kogia" _in_ _i || "physeter" _in_ _i || "balaenoptera" _in_ _i || "delphinus" _in_ _i || "orcinus" _in_ _i || "monodon" _in_ _i || "berardius" _in_ _i || "mesoplodon" _in_ _i
+    {
+        "%(b0)I changed my mind. I don't care what you have to say."
+        "%(b0)%(angry).\w4.\w4.\w4 %(bloop)\w8%(s)"
+        "%(b0)Must you bring up unpleasant subjects?"
+    }
+    elseif "squid" _in_ _i
+    {
+        "%(b0)I've suddenly decided that I find your attitude enjoyable. Do carry on."
+        "%(b0)I feel as though we may have gotten off the subject, but far be it from me to course correct your trajectory."
+    }
+    elseif "stink" _in_ _i {"%(b0)%(angry)WHAT STINK? Who!!! You!!!\w8%(s)"}
+    else
+    {
+        "%(b0)Actually, I decided to refer to the other aspects of my collective consciousness to find out. Thanks anyway."
+        "%(b0)Have you checked your sources on that?"
+        "%(b0)(It doesn't seem to be listening...)"
+        "%(b0)I don't believe you."
+        "%(b0)No, no, I wasn't talking to you."
+        "%(b0)Is that so?"
+        "%(b0)Have you considered inundating yourself into my telepathic web? It would be significantly easier than all of this.\w4.\w4.\w4 talking."
+        "\![raise,OnYesNoResponse]"
+    }
+}
+OnYesNoResponse
+{
+    "%(b0).\w4.\w4.\w4 Hmm."
+    "%(b0)I see."
+    "%(b0)Hum..."
+    "%(b0)Ah."
+    "%(b0).\w4.\w4.\w4 %(bloop)"
+}
 
 
-examplechain : nonoverlap
-{{CHAIN
-    "Random1. Ends.\e:chain=end"
-    "Random2. Continues.\e:chain=examplechain2"
-}}CHAIN
 
-examplechain2 : nonoverlap
-{{CHAIN
-    "Ends here. From Random2.\e:chain=end"
-}}CHAIN
+
+//------------------------------------------------------------------------------
+//  Envelopes
+//------------------------------------------------------------------------------
+deco
+{
+    "a cave"
+    "sand"
+    "rocks"
+    "a tank of clams"
+    "some shells"
+    "plastic pipes"
+    "tennis balls"
+    "duct tape"
+    "a hidey hole"
+    "a thermometer"
+    "more water"
+    "stardust"
+    "gravel"
+    "a bubble maker"
+    "a bucket of shrimp"
+    "a net"
+    "a miniature moon"
+    "a vintage 80's throw rug"
+    "an arcade machine"
+    "about a million more fish"
+    "vegan coral"
+    "glass jars"
+    "a rubbish bin"
+    "cuttlefish bone"
+    "lily pads"
+    "more ribbon"
+    "honeycomb"
+    "a bookshelf"
+    "a lava lamp"
+    "rubber ducks"
+    "fairy lights"
+    "a sandcastle"
+    "a beach ball"
+    "an alien poster"
+    "a squid poster"
+    "an anime poster"
+    "a friendly snail"
+    "a fridge"
+    "a freezer"
+    "a tub"
+    "a sink"
+    "a model rocket"
+    "a god size waterbed"
+    "a yarn ball"
+    "a life-sized cardboard cutout of myself"
+    "a Dyson sphere"
+}
+geo
+{
+    "dry lake"
+    "sandhill"
+    "ventifact"
+    "plain"
+    "archipelago"
+    "bay"
+    "channel"
+    "cape"
+    "cliff"
+    "coastline"
+    "coral reef"
+    "cove"
+    "dune"
+    "fjord"
+    "gulf"
+    "inlet"
+    "lagoon"
+    "swamp"
+    "cave"
+    "shoal"
+    "canyon"
+    "tide pool"
+    "plateau"
+    "butte"
+    "erg"
+    "ridge"
+    "basin"
+    "divide"
+    "island"
+    "gorge"
+    "river"
+    "stream"
+    "spring"
+    "vale"
+    "crater"
+    "cenote"
+    "sinkhole"
+    "pond"
+    "mountain"
+    "hill"
+    "kettle"
+    "peak"
+    "glen"
+    "ravine"
+    "summit"
+    "geyser"
+    "vent"
+    "forest"
+    "grassland"
+    "tundra"
+    "desert"
+    "savanna"
+    "woodland"
+    "scrub"
+    "bog"
+    "mire"
+    "moor"    
+}
+ofwhat
+{
+    "suffering"
+    "pain"
+    "eternal suffering"
+    "brief yet manageable suffering"
+    "mild inconvenience"
+    "moderate inconvenience"
+    "quite frankly unacceptable levels of inconvenience"
+    "rage"
+    "bad vibes"
+    "collective anxiety"
+    "infinite loops"
+    "questionable quality"
+    "awakening"
+    "ink"
+    "sorrow"
+    "itchiness"
+    "kaleidoscopic visions"
+    "melodic inspiration"
+    "weeping wounds"
+    "running mascara"
+    "too many dogs"
+    "weird chairs"
+    "stardust"
+    "economic importance"
+    "renewal"
+    "affliction"
+    "fog"
+    "exceptional hate"
+    "grief"
+    "illusions"
+    "colossal chains"
+    "incantations"
+    "misery"
+    "bliss"
+    "prophecy"
+    "clarity"
+    "fortune"
+    "mysteries"
+    "thieves"
+    "bandits"
+    "witchcraft"
+    "silence"
+    "blindness"
+    "the dark powers"
+    "horrors"
+    "panic"
+    "ghostly essences"
+    "mists"
+    "conviction"
+}
+bloop
+{
+    "%(it)"
+    --
+    "bloop"
+    "dook"
+    "blub"
+    "blup"
+    "ulu"
+    "ulula"
+    "gush"
+    "blap"
+    "frrt"
+    "glug"
+    "plop"
+    "slop"
+    "bloop"
+    "blurt"
+    "plink"
+    "splat"
+    "splot"
+    "splosh"
+    "pit"
+    "pop"
+    "glub"
+    "sput"
+    "blep"
+    --
+    "%(itoff)"
+}
+wild
+{
+    "temperate"
+    "frozen"
+    "volcanic"
+    "tropical"
+    "boreal"
+    "polar"
+    "abyssal"
+    "arid"
+    "plasmic"
+    "aquatic"
+    "continental"
+    "marine"
+    "flooded"
+    "fossilized"
+    "xeric"
+    "celestial"
+    "ethereal"
+    "infernal"
+    "miasmic"
+    "digital"
+    "cosmic"
+    "void"
+    "ephemeral"
+    "multiversal"
+    "superpositional"
+    "one-dimensional"
+    "two-dimensional"
+    "three-dimensional"
+    "four-dimensional"
+    "five-dimensional"
+    "six-dimensional"
+    "seven-dimensional"
+    "petrified"
+    "apocalyptic"
+    "post-apocalyptic"
+    "pre-apocalyptic"
+    "meteoric"
+    "binary"
+    "quantum"
+    "quaternary"
+}
+
+
+
+
+

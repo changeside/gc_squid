@@ -10,11 +10,10 @@ OnMenu
 
 	"%(b0)\_l[0,25]/
 	\q[Customization,OnCustomize]\n/
-	\q[Tasks,OnTask]\n/
 	\q[Timer,OnTimer]\n/
 	\q[Options,OnOption]\n/
 	\q[Goodbye!,OnClose_Own]\n/
-	\q[Nevermind,script:\e]"
+	\_l[0,130]\q[Nevermind,script:\e]"
 }
 
 OnCustomize
@@ -26,18 +25,21 @@ OnCustomize
 	for _i = 0; _i < 30; _i++
 	{
 		if reference0 != "balloon" {
-			if _i == squidnr; _txt += "*"
+			if _i == squidnr; _txt += "\_l[@-1]\![*]\f[bold,1]"
+			else; _txt += "\f[bold,0]"
 		}
 		else {
-			if _i == balloonnr; _txt += "*"
+			if _i == balloonnr; _txt += "\_l[@-1]\![*]\f[bold,1]"
+			else; _txt += "\f[bold,0]"
 		}
-		_txt += "\q[" + OnCustomize_Names[_i] + ",OnCustomize_Set," + reference0 + "," + _i + "]" + "\n"
-
+		_txt += "\q[" + OnCustomize_Names[_i] + ",OnCustomize_Set," + reference0 + "," + _i + "]"
+		if (_i+1)%2 == 0; _txt += "\n"
+		else; _txt += "\_l[110]"
 	}
 	//Printing the menu
 	"%(b2)\_q\![set,autoscroll,disable]/
-	%(_font[0])\q[Squid,OnCustomize,squid]\_l[@30]%(_font[1])\q[Balloon,OnCustomize,balloon]\f[bold,0]\_l[@30]\q[Back,OnMenu]\n\n/
-	%(_txt)"
+	%(_font[0])\q[Squid,OnCustomize,squid]\_l[@35]%(_font[1])\q[Balloon,OnCustomize,balloon]\f[bold,0]\_l[@35]\q[Back,OnMenu]\n\n[half]/
+	%(_txt)\f[bold,0]"
 }
 OnCustomize_Names : array
 {
@@ -86,7 +88,7 @@ OnCustomize_Set
 
 OnTask
 {
-
+	""
 }
 
 OnTimer
@@ -96,5 +98,38 @@ OnTimer
 
 OnOption
 {
+	"\_q%(b0)%(b)Options%(boff)\n\n[half]/
+	\q[Name:,OnUserInputCancel,OnUsernameSet] %(username)\n/
+	\q[Birthday:,OnUserInputCancel,OnUserBirthday] %(PrintBirthday)\n/
+	\q[Species:,OnUserInputCancel,OnUserSpecies] %(userspecies)\n/
+	\q[Planet:,OnUserInputCancel,OnUserPlanet] %(userplanet)\n/
+	\_l[0,130]\q[Nevermind,OnMenu]"
+}
 
+PrintBirthday //print date in written out day month format 
+{
+	_p = ""; _date = userbirthday
+		
+	case TOINT(_date[0]) {
+		when 1,21,31; _p += "%(_date[0])st"
+		when 2,22; _p += "%(_date[0])nd"
+		when 3,23; _p += "%(_date[0])rd"
+		others; _p += "%(_date[0])th"
+	}
+	_p += " "
+	case TOINT(_date[1]) {
+		when 1; _p += "January"
+		when 2; _p += "February"
+		when 3; _p += "March"
+		when 4; _p += "April"
+		when 5; _p += "May"
+		when 6; _p += "June"
+		when 7; _p += "July"
+		when 8; _p += "August"
+		when 9; _p += "September"
+		when 10; _p += "October"
+		when 11; _p += "November"
+		others; _p += "December"
+	}
+	_p
 }

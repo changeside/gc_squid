@@ -61,12 +61,20 @@ OnBoot_Dialogue : nonoverlap
 //------------------------------------------------------------------------------
 OnClose //Forced
 {
-	"\-"
+	"%(b0)Fine. I needed to go buy %(deco) anyway."
+	"%(b0)Some people say goodbye before they kick you out.\n\nNot you, apparently."
+	"%(b0)GOODBYE, summoner.\w8\w8\n\nSee how I did that?\w8 Bid you farewell before I left?\w8\n\nTry it sometime."
+	--
+	"\w8\w8\-"
 }
 
 OnClose_Own //Through menu
 {
-	"\-"
+	"%(b0)It's been an interesting visit. Take care of that weak meat body of yours."
+	"%(b0)So long for now, summoner. Think fondly of our time together and I shall hear your affection across the channels of space-time."
+	"%(b0)Ah, to be parted. To be alone! To know neither touch nor kind word! To have the chill of space once occupied suddenly vacant.\n\nI\w8\w8\w8 forgot where I was going with that.\w8\w8 See you later, %(username)."
+	--
+	"\w8\w8\-"
 }
 
 
@@ -130,26 +138,39 @@ OnUpdateCheckFailure {}
 OnUpdateBegin {}
 OnUpdateReady {
 	//reference0 = new files
+	"%(b0)There is a wave of change rippling through the layers of the multiverse, altering all those that succumb to it. We, too, should allow ourselves to be 'updated'."
 }
 OnUpdate.OnDownloadBegin {
 	//reference0 = filename
 }
 OnUpdateComplete {
 	//reference0 = amount of files(?); none = no updated
+	"%(b0)Your update has been completed. How are you feeling? Headache? Nausea? Crippling fear of a potential porpoise behind you?\n\n\w8I may be projecting that last one."
 }
 OnUpdateFailure {
 	//reference0 = error reason
+	"%(b0)There seems to have been a problem with your update. You'll not reach transcendence if you don't figure out where the problem is\w4, and I do not particularly care to help.\n\nBest of luck."
 }
 
 //Installs
-OnInstallBegin {}
-OnInstallComplete {}
-OnInstallFailure {}
-OnInstallRefuse {}
+OnInstallBegin {
+	"%(b0)Interested in contributing to the collective mind-well, are you? Wonderful! Allow me a moment to intigrate this new knowledge."
+}
+OnInstallComplete {
+	"%(b0)Your contribution to my brain nourishment has passed all evaluation. Let me know if you'd like to add anything else."
+}
+OnInstallFailure {
+	"%(b0)There's a problem with your files that you might want to figure out.\w8\w8\n\nYour.\w4.\w4.\w4 brain files. That you sent.\w4.\w4.\w4 with your brain.\w8\w8 Because I'm telepathic.\w8\w8 Not a program."
+}
+OnInstallRefuse {
+	"%(b0)This is not for me, I have no interest in it, and if you keep trying to give it to me, I will eat it and you won't get it back. Try elsewhere."
+}
 
 //Deinstalling
 OnVanishSelecting {}
-OnVanishSelected {}
+OnVanishSelected {
+	"%(b0).\w8.\w8.\w8\n\nYou shall regret this.\w8\w8\w8"
+}
 
 //Low battery refernce0 = percentage
 OnBatteryLow {

@@ -1,1 +1,2 @@
 workfiles/,nonar,noupdate
+squidloon/,noupdate
