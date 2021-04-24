@@ -10,7 +10,7 @@ sakura.name,Squid
 //Author name
 craftman,galla_change
 //Update website	
-//homeurl,url								
+homeurl,https://raw.githubusercontent.com/changeside/gc_squid/master/gc_squid/				
 
 
 //Sets default surfaces for characters
