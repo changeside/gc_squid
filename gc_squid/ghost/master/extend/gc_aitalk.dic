@@ -348,7 +348,11 @@ wild
     "quaternary"
 }
 
-
+//Envelope fixes cuz galla was a stressed dink
+name {username}
+species {userspecies}
+birthday {userbirthday}
+planet {userplanet}
 
 
 

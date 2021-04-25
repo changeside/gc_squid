@@ -3,18 +3,18 @@ __system_settings_version__,2
 char0.bind.savearray,158=0 157=0 156=0 155=1
 balloon,C:\Users\Chang\Desktop\ssp_2_4_85f\balloon\Dev\squidloon\
 Char1.balloon.isleft,1
-inputbox.left,1019
-balloon0.offset,-92.-11
+inputbox.left,1272
+balloon0.offset,-18.-190
 scriptbox.left,526
-Char0.centery,639
+Char0.centery,643
 balloon1.offset,685.-171
 Char0.balloon.isleft,1
-Char.VirtualDesktop,16bfe116-0a97-4005-8907-f3d7d93bd5e2
-Char0.center,1560
+Char.VirtualDesktop,1fee1f1e-9d77-44f7-b65d-aff7bbb56ae7
+Char0.center,1650
 scriptbox.top,788
 Char1.centery,589
 Char1.center,943
 seriko.scaling.percent.x,66
 seriko.scaling.percent.y,66
-inputbox.top,426
+inputbox.top,350
 __system_written_flag_do_not_remove__,written

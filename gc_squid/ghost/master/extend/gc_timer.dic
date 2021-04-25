@@ -32,12 +32,12 @@ OnTimer_Settings
     \q[Count,OnTimer_Counttoggle] %(_count)"
 }
 OnTimer_Menutoggle {
-    timershow = (timershow++)%2
+    timershow = (TOINT(timershow)+1)%2
     --
     OnTimer_Settings
 }
 OnTimer_Counttoggle {
-    timerdown = (timerdown++)%2
+    timerdown = (TOINT(timerdown)+1)%2
     --
     OnTimer_Settings
 }
@@ -97,12 +97,12 @@ OnTimer_Count
         }
     }
     --
-    if OnTimer_Done {
+    if OnTimer_Done && timeractive {
         timeractive = 0
         timer = timerremember
         OnTimer
     }
-    elseif timershow && timeractive == 1; OnTimer
+    elseif timershow == 1 && timeractive == 1; OnTimer
 }
 
 OnTimer_Done
