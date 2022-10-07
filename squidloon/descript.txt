@@ -1,7 +1,9 @@
-charset,UTF-8
+﻿charset,UTF-8
 type,balloon
 name,squidloon
 craftman,galla_change
+
+recommended.ghost.path,gc_squid
 
 homeurl,https://raw.githubusercontent.com/changeside/gc_squid/master/squidloon/	
 

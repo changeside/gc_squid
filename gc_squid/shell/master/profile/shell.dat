@@ -1,20 +1,20 @@
 Charset,UTF-8
 __system_settings_version__,2
-char0.bind.savearray,158=0 157=0 156=0 155=1
+char0.bind.savearray,158=0 157=1 156=0 155=0
 balloon,C:\Users\Chang\Desktop\ssp_2_4_85f\balloon\Dev\squidloon\
 Char1.balloon.isleft,1
-inputbox.left,1272
-balloon0.offset,-18.-190
+inputbox.left,-1781
+balloon0.offset,-48.-30
 scriptbox.left,526
-Char0.centery,643
+Char0.centery,534
 balloon1.offset,685.-171
 Char0.balloon.isleft,1
-Char.VirtualDesktop,1fee1f1e-9d77-44f7-b65d-aff7bbb56ae7
-Char0.center,1650
+Char.VirtualDesktop,34462d41-cabf-4afc-a357-d681ff01d8f5
+Char0.center,1271
 scriptbox.top,788
 Char1.centery,589
 Char1.center,943
 seriko.scaling.percent.x,66
 seriko.scaling.percent.y,66
-inputbox.top,350
+inputbox.top,171
 __system_written_flag_do_not_remove__,written

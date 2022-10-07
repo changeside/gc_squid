@@ -18,7 +18,7 @@ sakura.seriko.defaultsurface,9900
 kero.seriko.defaultsurface,10
 
 //Toggles ghost communication (default 1)
-sstp.allowcommunicate,1			
+sstp.allowcommunicate,1	
 
 //1 disables lip-sync (default 0)
 don't need seriko talk,0	
